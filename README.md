@@ -1,6 +1,6 @@
-WeatherApp
+#WeatherApp
 
-A very simple weather application based on the weather app 'Stormy' from TeamTreehouse
+A very simple weather application based on the weather app 'Stormy' from [TeamTreehouse](https://teamtreehouse.com/)
 
 ## Forecast API:
 This application uses forecast.io as a service to provide updated weather information
