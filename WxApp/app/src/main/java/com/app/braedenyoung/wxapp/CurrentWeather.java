@@ -1,13 +1,19 @@
 package com.app.braedenyoung.wxapp;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class CurrentWeather {
 
     private String mIcon;
     private long mTime;
+    private String mTimezone;
     private double mTemperature;
     private double mHumidity;
+    private double mPrecipChance;
+    private String mSummary;
 
     public String getIcon() {
         return mIcon;
@@ -19,6 +25,13 @@ public class CurrentWeather {
 
     public long getTime() {
         return mTime;
+    }
+
+    public String getFormattedTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("h:mm a");
+        formatter.setTimeZone(TimeZone.getTimeZone(getTimezone()));
+        Date datetime = new Date(getTime() * 1000);
+        return formatter.format(datetime);
     }
 
     public void setTime(long time) {
@@ -57,7 +70,12 @@ public class CurrentWeather {
         mSummary = summary;
     }
 
-    private double mPrecipChance;
-    private String mSummary;
 
+    public String getTimezone() {
+        return mTimezone;
+    }
+
+    public void setTimezone(String timezone) {
+        mTimezone = timezone;
+    }
 }
