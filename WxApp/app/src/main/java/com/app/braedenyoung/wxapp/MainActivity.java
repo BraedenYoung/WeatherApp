@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.okhttp.Call;
@@ -62,6 +63,9 @@ public class MainActivity extends Activity {
                         if (response.isSuccessful()) {
 
                             mCurrentWeather = getCurrentDetails(jsonData);
+
+                            TextView temperatureTextView = (TextView)findViewById(R.id.temperatureLabel);
+//                            temperatureTextView.setText(String.valueOf(mCurrentWeather.getTemperature()));
 
                         } else {
                             alertUserAboutError();
