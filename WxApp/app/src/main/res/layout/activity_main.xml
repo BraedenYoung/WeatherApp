@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="168"
+        android:text="--"
         android:id="@+id/temperatureLabel"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
@@ -28,7 +28,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="A 5:25 PM it will be"
         android:id="@+id/timeLabel"
         android:layout_alignTop="@+id/temperatureLabel"
         android:layout_centerHorizontal="true"
@@ -81,8 +80,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0.88"
-                android:id="@+id/humidtyValue"
+                android:text="--"
+                android:id="@+id/humidityValue"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
                 android:gravity="center_horizontal"/>
@@ -105,7 +104,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="100%"
+                android:text="--"
                 android:id="@+id/precipValue"
                 android:textColor="@android:color/white"
                 android:gravity="center_horizontal"
@@ -116,12 +115,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sunny with a chance of meatballs"
+        android:text="Getting current weather"
         android:id="@+id/summaryLabel"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="15dp"
         android:textColor="@android:color/white"
+        android:gravity="center_horizontal"
         android:layout_below="@+id/linearLayout"
-        android:layout_alignEnd="@+id/locationLabel"
-        android:gravity="center_horizontal"/>
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

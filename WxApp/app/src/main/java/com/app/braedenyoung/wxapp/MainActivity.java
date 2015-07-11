@@ -3,6 +3,7 @@ package com.app.braedenyoung.wxapp;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 
 public class MainActivity extends Activity {
 
@@ -31,10 +36,19 @@ public class MainActivity extends Activity {
 
     private CurrentWeather mCurrentWeather;
 
+    @InjectView(R.id.timeLabel) TextView mTimeLabel;
+    @InjectView(R.id.temperatureLabel) TextView mTemperatureLabel;
+    @InjectView(R.id.humidityValue) TextView mHumidityValue;
+    @InjectView(R.id.precipValue) TextView mPrecipValue;
+    @InjectView(R.id.summaryLabel) TextView mSummaryLabel;
+    @InjectView(R.id.iconImageView) ImageView mIconImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.inject(this);
 
         String apiKey = "8068c6d598ecdcdb3e7232785ff25c20";
         double latitude = 37.8267;
@@ -65,8 +79,13 @@ public class MainActivity extends Activity {
                             mCurrentWeather = getCurrentDetails(jsonData);
 
                             TextView temperatureTextView = (TextView)findViewById(R.id.temperatureLabel);
-//                            temperatureTextView.setText(String.valueOf(mCurrentWeather.getTemperature()));
-
+//                          temperatureTextView.setText(String.valueOf(mCurrentWeather.getTemperature()));
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    updateDisplay();
+                                }
+                            });
                         } else {
                             alertUserAboutError();
                         }
@@ -84,6 +103,17 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void updateDisplay() {
+        mTemperatureLabel.setText(mCurrentWeather.getTemperature() + "");
+        mTimeLabel.setText("At " + mCurrentWeather.getFormattedTime() + "it will be");
+        mHumidityValue.setText(mCurrentWeather.getHumidity() + "");
+        mPrecipValue.setText(mCurrentWeather.getPrecipChance() + "%");
+        mSummaryLabel.setText(mCurrentWeather.getSummary());
+
+        Drawable drawable = getResources().getDrawable(mCurrentWeather.getIconId());
+        mIconImageView.setImageDrawable(drawable);
+    }
+
     private CurrentWeather getCurrentDetails(String jsonData) throws JSONException {
 
         JSONObject forecast = new JSONObject(jsonData);
@@ -97,6 +127,7 @@ public class MainActivity extends Activity {
         currentWeather.setPrecipChance(currently.getDouble("precipProbability"));
         currentWeather.setSummary(currently.getString("summary"));
         currentWeather.setTemperature(currently.getDouble("temperature"));
+        currentWeather.setTimezone("timezone");
 
         return currentWeather;
     }
